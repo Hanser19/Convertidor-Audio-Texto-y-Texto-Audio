@@ -130,8 +130,14 @@ def audio_to_text():
     file.save(filepath)
 
     try:
+        # Transcribir el audio a texto
         text = transcribe_large_audio(filepath)
-        return jsonify({'transcription': text})
+        
+        # Encriptar la transcripción
+        encrypted_transcription = encrypt_transcription(text)
+        
+        # Devolver la transcripción encriptada
+        return jsonify({'transcription': encrypted_transcription.decode()})
     except Exception as e:
         return jsonify({'error': f'Error al procesar el audio: {str(e)}'}), 500
 
